@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Propiedades computadas</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Propiedades Computadas</h1>
+        <h1>Ingresa dos números para calcular su suma.</h1>
+        <form class="form-inline">
+            <input v-model.number="a"> +
+            <input v-model.number="b">
+        </form>
+        <h2>Resultado: {{ a }} + {{ b }} = {{c}}</h2>
+        <pre>{{ $data }}</pre>
+    </div>
+</body>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+
+<script type="text/javascript">
+    new Vue({
+        el: '.container',
+        data: {
+            a: 1,
+            b: 2
+        },
+        computed: {
+            // Un getter computado
+            c: function () {
+                return this.a + this.b
+            }
+        }
+    })
+</script>
+
+</html>

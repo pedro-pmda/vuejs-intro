@@ -1,0 +1,72 @@
+/// WIP Me quedo trabajando en este ejercicio. Página 48 del libro
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calculadora</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">   
+</head>
+<body>
+    <div class="container">
+
+        <h1>Ingresa 2 números y escoge una operación. </h1>
+        <form class="form-inline">
+            <!-- Nota aquí que el modificador especial 'number' es pasado para convertir el texto ingresado en números -->
+            <input v-model.number="a" class="form-control">  
+            <select v-model="operator" class="form-control">
+                <option>+</option>
+                <option>-</option>
+                <option>*</option>
+                <option>/</option>
+            </select>
+            <!-- Nota aquí que el modificador especial 'number' es pasado para convertir el texto ingresado en números -->
+            <input v-model.number="b" class="form-control">  
+        </form>
+        <h2>Resultado: {{ a }}  {{ operator }} {{ b }} = {{ c }}</h2>
+        <pre>
+            {{ $data }}
+        </pre>
+    </div>   
+</body>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+
+<script type="text/javascript">
+    new Vue({
+        el: '.container',
+        data: {
+            a: 1,
+            b: 2,
+            operator: "+",
+            c: null            
+        },        
+        computed: {
+             c: function(){                
+                switch (this.operator) {
+                    case "+":
+                        return this.c = this.a + this.b
+                        break;
+                    case "-":
+                        return this.c = this.a - this.b
+                        break;
+                    case "*":
+                        return this.c = this.a * this.b
+                        break;
+                    case "/":
+                        return this.c = this.a / this.b
+                        break;
+                
+                    default:
+                        break;
+                }
+
+            }            
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Propiedades computadas</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Propiedades Computadas</h1>
+
+        a = {{ a }} |, b={{ b }}
+        <!--<input v-model="a"> -->
+        <input v-model.number="a">
+        <pre>
+            {{ $data }}
+        </pre>
+    </div>
+</body>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+
+<script type="text/javascript">
+    new Vue({
+        el: '.container',
+        data: {
+            a: 1
+        },
+        computed: {
+            // Un getter computado
+            b: function () {
+                /** `this`** hace referencia a la instancia VUE */
+                //return parseFloat(this.a) + 1   es nas limpio usando el tipo en el binding del v-model             
+                return this.a + 1                
+            }
+        }
+    })
+</script>
+
+</html>
