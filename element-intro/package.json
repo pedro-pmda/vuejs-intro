@@ -1,7 +1,7 @@
 {
-  "name": "element",
+  "name": "element-intro",
   "version": "1.0.0",
-  "description": "Test concept Vue+Element",
+  "description": "A Vue.js project",
   "author": "Pedro Palazón Martínez de Alegría <palazon@gmail.com>",
   "private": true,
   "scripts": {

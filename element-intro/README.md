@@ -1,6 +1,6 @@
-# element
+# element-intro
 
-> Test concept Vue+Element
+> A Vue.js project
 
 ## Build Setup
 

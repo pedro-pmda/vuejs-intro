@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+  <router-link to="/"><img src="./assets/logo.png"></router-link>
+    
     <router-view/>
   </div>
 </template>
@@ -21,3 +22,5 @@ export default {
   margin-top: 60px;
 }
 </style>
+
+
