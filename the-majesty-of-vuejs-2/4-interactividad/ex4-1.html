@@ -1,4 +1,4 @@
-n<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,23 +14,11 @@ n<!DOCTYPE html>
         <h1>Elecciones para Alcalde</h1>
 
         <h3>Por favor voto a su candidato favorito</h3>
+
+        <button v-for="(candidate,index) in candidates" @click="vote(index)" class="btn btn-primary btn" type="button">
+            {{ candidate.name }} <span class="badge">{{ candidate.votes }}</span>
+        </button>
         
-        <form class="form-inline">
-            <!-- Nota aquí que el modificador especial 'number' es pasado para convertir el texto ingresado en números -->
-            <input v-model.number="a" class="form-control">  
-            <select v-model="operator" class="form-control">
-                <option>+</option>
-                <option>-</option>
-                <option>*</option>
-                <option>/</option>
-            </select>
-            <!-- Nota aquí que el modificador especial 'number' es pasado para convertir el texto ingresado en números -->
-            <input v-model.number="b" class="form-control">  
-        </form>
-        <h2>Resultado: {{ a }}  {{ operator }} {{ b }} = {{ c }}</h2>
-        <pre>
-            {{ $data }}
-        </pre>
     </div>   
 </body>
 
@@ -40,34 +28,47 @@ n<!DOCTYPE html>
     new Vue({
         el: '.container',
         data: {
-            candidatos: [ """@  
-
-
+            candidates: [ 
+              {'name':'Jose Perez','votes':0},
+              {'name':'Ana Lopez','votes':0},
+              {'name':'John Catarro','votes':0},
+              {'name':'Imelda Lisz','votes':0},
+              {'name':'Salvador Junco','votes':0}
             ]
         },        
         computed: {
-             c: function(){                
-                switch (this.operator) {
-                    case "+":
-                        return this.c = this.a + this.b
-                        break;
-                    case "-":
-                        return this.c = this.a - this.b
-                        break;
-                    case "*":
-                        return this.c = this.a * this.b
-                        break;
-                    case "/":
-                        return this.c = this.a / this.b
-                        break;
-                
-                    default:
-                        break;
-                }
+            cadidatesSortByVote: function(candidates) {
+                function compare(a,b) {
+                    if (a.votes < b.votes) 
+                        return -1;
+                    } 
+                    if (a.id > b.id)
+                        return 1;
+                    return 0                    
+                };
+                candidates.sort(compare);                
+            }
+        },
+        methods: {
+            vote: function(iCandidate){                
+                this.candidates[iCandidate].votes++;
 
-            }            
+
+            },
+            restartVotes: function(){
+                this.candidates.forEach(candidate => {
+                    candidate.votes = 0;   
+                });
+            }
         }
+
     })
 </script>
+
+<style>
+    button {margin-right: 1%}
+
+</style>
+
 
 </html>

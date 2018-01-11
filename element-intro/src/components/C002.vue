@@ -1,29 +1,61 @@
 <template>
-  <div class="hello">
-    
+  <div>    
+        <el-container>
+          <el-header class="divider">
+              <h1>Autorizaciones Totales</h1>
+              <h2>En uso \ Total</h2>              
+          </el-header>
 
-        <el-row>
-            <el-col :span="12">
-            <el-code>var= 1</el-code>
-            </el-col>
-            <el-col :span="12">
-                <h1>{{ msg }}</h1>               
-            </el-col>
-            <h1>{{ msg }}</h1>   
-        </el-row>    
-
-  
-        
-        <el-button @click="show = !show">Click Me</el-button>
-    <div style="display: flex; margin-top: 20px; height: 100px;">
-      <transition name="el-zoom-in-center">
-        <div v-show="show" class="transition-box">.el-fade-in-linear</div>
-      </transition>
-      <transition name="el-fade-in">
-        <div v-show="show" class="transition-box">.el-fade-in</div>
-      </transition>
-    </div>
-  
+          <el-main class="divider">
+            <el-row>                
+                  <el-col :span="8">
+                      <img class="imgStatics" src="../assets/casa.svg"></img>
+                  </el-col>
+                  <el-col :span="8">
+                      <img class="imgStatics" src="../assets/garaje.svg"></img>
+                  </el-col>
+                  <el-col :span="8">
+                      <img class="imgStatics" src="../assets/otrosinmuebles.svg"></img>
+                  </el-col>                  
+            </el-row>
+            <el-row>
+                  <el-col :span="8">
+                      <h2>Viviendas</h2>              
+                  </el-col>
+                  <el-col :span="8">
+                      <h2>Garajes</h2>
+                  </el-col>
+                  <el-col :span="8">
+                      <h2>Trasteros / Locales /S/A</h2>
+                  </el-col>                  
+            </el-row>
+            
+            <template v-for="(estadistica,index) in estadisticas" class="statrow">
+              <el-row>
+                    <el-col :span="8">
+                        <span class="statnumber"> {{estadistica.viviendas[0]}} <span v-if="estadistica.viviendas.length > 1">/ {{estadistica.viviendas[1]}}</span></span>
+                    </el-col>
+                    <el-col :span="8">
+                        <span class="statnumber"> {{estadistica.garajes[0]}} <span v-if="estadistica.garajes.length > 1">/ {{estadistica.garajes[1]}}</span></span>
+                    </el-col>
+                    <el-col :span="8">
+                        <span class="statnumber"> {{estadistica.otros[0]}} <span v-if="estadistica.otros.length > 1">/ {{estadistica.otros[1]}}</span></span>
+                    </el-col>                  
+              </el-row>
+              <el-row>
+                    <el-col :span="8">
+                        {{ estadistica.tipo }}
+                    </el-col>
+                    <el-col :span="8">
+                        {{ estadistica.tipo }}
+                    </el-col>
+                    <el-col :span="8">
+                        {{ estadistica.tipo }}
+                    </el-col>                  
+              </el-row>
+            </template>
+          </el-main>
+        </el-container> 
   </div>
 </template>
 
@@ -31,10 +63,41 @@
 export default {
   name: 'C002',
   data () {
-    return {
-      msg: 'Bienvenido al componente 2',
-      show: true
-    }
+  return {
+    msg: 'Welcome to Your Vue.js App',
+    estadisticas: [
+        {
+          tipo: 'Puntuales (anuales)',
+          viviendas: [15,120],
+          garajes: [47,60],
+          otros: [5,60]
+        },
+        {
+          tipo: 'Libre disposición',
+          viviendas: [7,15],
+          garajes: [0,10],
+          otros: [0,5]
+        },
+        {
+          tipo: 'Ordinarias',
+          viviendas: [1,5],
+          garajes: [0,1],
+          otros: ['N','A']
+        },
+        {
+          tipo: 'Antiguo APR',
+          viviendas: [15],
+          garajes: [10],
+          otros: [1]
+        },
+        {
+          tipo: 'Especiales',
+          viviendas: [1],
+          garajes: [0],
+          otros: [1]
+        }
+    ]    
+  }
   }
 }
 </script>
@@ -43,7 +106,10 @@ export default {
 <style scoped>
 h1, h2 {
   font-weight: normal;
+  margin: 0px;
 }
+
+
 ul {
   list-style-type: none;
   padding: 0;
@@ -56,17 +122,23 @@ a {
   color: #42b983;
 }
 </style>
+
 <style>
-  .transition-box {
-    margin-bottom: 10px;
-    width: 200px;
-    height: 100px;
-    border-radius: 4px;
-    background-color: #409EFF;
-    text-align: center;
-    color: #fff;
-    padding: 40px 20px;
-    box-sizing: border-box;
-    margin-right: 20px;
+  .imgStatics {
+    width: 90px;
   }
+
+  .statnumber {
+    font-size: 2.25rem;
+  }
+
+  .statrow {
+    margin: 15px;
+  }
+
+  .divider {
+    border-bottom: 1px solid #ebebeb;
+    border-radius: 3px;
+    transition: .2s;
+}
 </style>
