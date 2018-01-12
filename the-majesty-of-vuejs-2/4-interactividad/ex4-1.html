@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Elecciones para Alcalde</title>
 
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
 </head>
 <body>
     <div class="container">
@@ -14,15 +14,29 @@
         <h1>Elecciones para Alcalde</h1>
 
         <h3>Por favor voto a su candidato favorito</h3>
+        
+        <hr class="my-4">        
+        <div class="row">
+            <button class="col-m4 btn btn-primary btn" v-for="(candidate,index) in candidates" @click="vote(index)" type="button">
+                {{ candidate.name }} <span class="badge">{{ candidate.votes }}</span>
+            </button>
+        </div>
 
-        <button v-for="(candidate,index) in candidates" @click="vote(index)" class="btn btn-primary btn" type="button">
-            {{ candidate.name }} <span class="badge">{{ candidate.votes }}</span>
-        </button>
+        <hr class="my-4">
+        
+        <button type="button" class="close" aria-label="Close" @click="restartVotes()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+        <div class="jumbotron">
+                    <span class="display-4">El candidato ganador es: {{ winner }}</span>
+        </div>
+
         
     </div>   
 </body>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+
 
 <script type="text/javascript">
     new Vue({
@@ -34,40 +48,48 @@
               {'name':'John Catarro','votes':0},
               {'name':'Imelda Lisz','votes':0},
               {'name':'Salvador Junco','votes':0}
-            ]
+            ],
+            winner: ""
         },        
         computed: {
-            cadidatesSortByVote: function(candidates) {
-                function compare(a,b) {
-                    if (a.votes < b.votes) 
-                        return -1;
-                    } 
-                    if (a.id > b.id)
-                        return 1;
-                    return 0                    
-                };
-                candidates.sort(compare);                
-            }
         },
         methods: {
             vote: function(iCandidate){                
                 this.candidates[iCandidate].votes++;
-
-
+                this.winner = this.isWinner();
             },
             restartVotes: function(){
                 this.candidates.forEach(candidate => {
                     candidate.votes = 0;   
                 });
+            },
+            cadidatesSortByVote: function(candidates) {
+                let candidatesTemp = new Array;
+                
+                candidatesTemp = candidatesTemp.concat(candidates);
+                
+                function compare(a,b) {
+                    if (a.votes > b.votes) 
+                        return -1;
+                    
+                    if (a.votes < b.votes)
+                        return 1;
+                    return 0 ;                   
+                };
+                
+                candidatesTemp.sort(compare);
+                return candidatesTemp;
+            },
+            isWinner: function() {
+                let tempVotesCandidates = this.cadidatesSortByVote(this.candidates);
+                return tempVotesCandidates[0].name;
             }
-        }
-
+        }        
     })
 </script>
 
 <style>
     button {margin-right: 1%}
-
 </style>
 
 

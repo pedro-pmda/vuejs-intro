@@ -81,7 +81,7 @@ export default {
         {
           tipo: 'Ordinarias',
           viviendas: [1,5],
-          garajes: [0,1],
+          garajes: [15,1],
           otros: ['N','A']
         },
         {
