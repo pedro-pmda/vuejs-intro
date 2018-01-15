@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content=
+>
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Votos Positivos</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1>¡Esuchemos algunas historias!</h1>
+        <hr class="my-4">
+        <ul class="list-group">
+            <story v-for="story in stories" :story="story"></story>
+        </ul>
+        <hr class="my-4">
+        <pre>{{ $data }}</pre>
+
+    </div>
+    
+    
+    <template id="story-template">
+        <li class="list-group-item">
+            {{ story.writer }} dijo " {{ story.plot }}".
+            {{ story.upvotes}} votos.
+            <button v-show="!story.voted" @click="upvote" class="btn btn-info">
+                Votar
+            </button>
+        </li>
+    </template>
+</body>
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+
+<script type="text/javascript">
+
+    Vue.component('story', {
+        template: '#story-template',
+        props: ['story'],
+        methods: {
+            upvote: function() {
+                this.story.upvotes += 1;
+                this.story.voted = true;
+            }
+        }        
+    });
+
+    new Vue({
+        el: '.container',
+        data: {
+            stories: [
+            {
+                plot: 'Mi caballo es genial',
+                writer: 'Mr. Weebl',
+                upvotes: 28,
+                voted: false
+
+            },
+            {
+                plot: 'Los narvales inventaron el Shish Kebab',
+                writer: 'Mr. Weebl',
+                upvotes: 8,
+                voted: false
+            },
+            {
+                plot: 'El lado oscuro de la Fuerza es más fuerte',
+                writer: 'Darth Vader',
+                upvotes: 49,
+                voted: false
+            },
+            {
+                plot: 'Uno simplemente no camina hacia Mordor',
+                writer: 'Boromir',
+                upvotes: 74,
+                voted: false
+            }
+            ]
+        },
+        })
+  </script>
+</html>

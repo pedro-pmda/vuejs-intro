@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content=
+>
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Votos Positivos</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1>¡Identidades reales de los superhéroes!</h1>
+        <ul class="list-group">
+            <li v-for="hero in heroes" class="list-group-item">
+                {{ hero | snitch}}
+            </li>
+        </ul>
+    </div>
+</body>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+
+
+<script type="text/javascript">
+
+    Vue.filter('snitch', function(hero) {
+        return '¡' + hero.secretId + ' es ' + hero.firstname + ' ' + hero.lastname + ' en la vida real!'
+    });
+
+    new Vue({
+        el: '.container',
+        data: {
+            heroes: [
+                { firstname: 'Bruce', lastname: 'Wayne', secretId: 'Batman'},
+                { firstname: 'Clark', lastname: 'Kent', secretId: 'Superman'},
+                { firstname: 'Jay', lastname: 'Garrick', secretId: 'Flash'},
+                { firstname: 'Peter', lastname: 'Parker', secretId: 'Spider-Man'}
+            ]
+            }
+        })
+  </script>
+</html>

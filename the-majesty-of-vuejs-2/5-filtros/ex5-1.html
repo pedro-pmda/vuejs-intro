@@ -1,0 +1,76 @@
+<html>
+<head>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <title>Famous Stories</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Vamos a ver las edades!</h1>
+  <ul class="list-group">
+    <li v-for="story in _.orderBy(edades, ['edad'], [order])" class="list-group-item">
+      {{ story.name }} tiene "{{ story.edad }}" años
+    </li>
+  </ul>
+  <button class="btn btn-default" v-on:click="reverseOrder">Reverse Order</button>
+  <ul class="list-group">
+        <li v-for="story in filteredByAge" class="list-group-item">
+          {{ story.name }} tiene "{{ story.edad }}" años
+        </li>
+      </ul>
+  <pre>
+    {{ $data }}
+  </pre>
+</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js"></script>
+<script type="text/javascript">
+  new Vue({
+    el: '.container',
+    data: {
+      edades: [
+      {
+        nombre: "Pedro",
+        edad: 36
+      },
+      {
+        nombre: "Miriam",
+        edad: 40
+      },
+      {
+        nombre: "Susana",
+        edad: 42
+      },
+      {
+        nombre: "Alejandra",
+        edad: 7
+      },
+      {
+        nombre: "Iciar",
+        edad: 12
+      },
+      {
+        nombre: "Sagrario",
+        edad: 74
+      },
+      {
+        nombre: "Pepe",
+        edad: 85
+      }
+      ],
+      order : 'desc'
+    },
+    methods: {
+      reverseOrder: function () {
+        this.order = (this.order === 'desc') ? 'asc' : 'desc'
+      }
+    },
+    computed: {
+      filteredByAge: function () {
+        return this.edades.filter( function(persona) { 
+                                        if (persona.edad >= 65) return persona} );        
+      }
+    }    
+  })
+</script>
+</html>

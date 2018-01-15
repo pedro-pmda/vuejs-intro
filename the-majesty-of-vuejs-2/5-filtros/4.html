@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content=
+>
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Historias famosas</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1>¡Escuchemos algunas historias!</h1>
+        <div>
+            <ul class="list-group">
+                <li v-for="story in orderStories" class="list-group-item">
+                    {{ story.writer }} dijo " {{ story.plot }} "
+                    {{ story.upvotes }} votos.
+                </li>
+            </ul>
+            <button @click="order = order * -1">Invertir orden</button>
+            <hr class="my-4">
+            <pre>
+                {{ $data }}
+            </pre>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+
+<script type="text/javascript">
+    new Vue({
+        el: '.container',
+        data: {
+            stories: [
+                {
+                    plot: "¡Estrellé mi coche hoy!",
+                    writer: "Alex",
+                    upvotes: 28
+                },
+                {
+                    plot: "¡Ayer, alguien robó mi bolso!",
+                    writer: "John",
+                    upvotes: 8
+                },
+                {
+                    plot: "Alguien se comió mi chocholate",
+                    writer: "John",
+                    upvotes: 51
+                },
+                {
+                    plot: "¡Me comí el chocolate de alguien!",
+                    writer: "Alex",
+                    upvotes: 74
+                }
+            ],
+            order: -1
+        },
+        methods: 
+        {
+            // Un método que filtra las historias dependiendo del escritor
+            storiesBy: function(writer) {
+                return this.stories.filter (function(story) {
+                    return story.writer === writer
+                })
+            }
+        },
+        computed:
+        {
+            orderStories: function() {
+                var order = this.order;
+                return this.stories.sort(function (a, b) {
+                    return (a.upvotes - b.upvotes) * order; 
+                })
+            }
+        }
+    })
+  </script>
+</html>

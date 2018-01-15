@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content=
+>
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Historias de los usuarios</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1>¡Escuchemos algunas historias!</h1>
+        <div>
+            <h3>Historias de Alex</h3>
+            <ul class="list-group">
+                <story v-for="story in storiesBy('Alex')" :story="story"></story>
+            </ul>
+
+            <h3>Historias de John</h3>
+            <ul class="list-group">
+                <story v-for="story in storiesBy('John')" :story="story"></story>
+            </ul>
+
+
+            <div class="form-group">
+                <label for="query">
+                    ¿Qué estás buscando?
+                </label>
+                <input v-model="query" class="form-control">
+            </div>
+            <hr class="my-4">
+            <h3>Resultados de la búsqueda:</h3>
+            <ul class="list-group">
+                <story v-for="story in search" :story="story"></story>
+            </ul>
+            <hr class="my-4">
+            <pre>
+                {{ $data }}
+            </pre>
+        </div>
+    </div>
+</body>
+
+<template id="story-template">
+    <li class="list-group-item">
+        {{ story.writer }} dijo " {{ story.plot }}"
+    </li>
+</template>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+
+<script type="text/javascript">
+
+    Vue.component('story', {
+                   props: ['story'], 
+                   template: '#story-template'
+    }); 
+
+    new Vue({
+        el: '.container',
+        data: {
+            stories: [
+                {
+                    plot: "¡Estrellé mi coche hoy!",
+                    writer: "Alex",
+                    upvotes: 28
+                },
+                {
+                    plot: "¡Ayer, alguien robó mi bolso!",
+                    writer: "John",
+                    upvotes: 8
+                },
+                {
+                    plot: "Alguien se comió mi chocholate",
+                    writer: "John",
+                    upvotes: 51
+                },
+                {
+                    plot: "¡Me comí el chocolate de alguien!",
+                    writer: "Alex",
+                    upvotes: 74
+                }
+            ],
+            query: ''
+        },
+        methods: 
+        {
+            // Un método que filtra las historias dependiendo del escritor
+            storiesBy: function(writer) {
+                return this.stories.filter (function(story) {
+                    return story.writer === writer
+                })
+            }
+        },
+        computed:
+        {
+            search: function() {
+                var query = this.query;
+                return this.stories.filter(function (story) {
+                    return story.plot.includes(query);
+                })
+            }
+        }
+    })
+  </script>
+</html>

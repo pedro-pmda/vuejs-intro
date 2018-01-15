@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content=
+>
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Historias famosas</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <story :story="{'plot':'Mi caballo es genial', 'writer':'Mr. Weebl'}"></story>
+        <story :story="{ plot: 'Los narvales inventaron el Shish Kebab', writer:'Mr. Weebl'}"></story>
+        <story :story="{ plot: 'El lado oscuro de la Fuerza es más fuerte', writer:'Darth Vader'}"></story>        
+    </div>
+</body>
+
+<template id="story-template">
+    <h1> {{ story.writer }} dijo {{ story.plot }}</h1>
+</template>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+
+<script type="text/javascript">
+    Vue.component('story', {
+        props: ['story'],    
+        template: "#story-template"
+    })
+    new Vue({
+        el: '.container',
+    })
+  </script>
+</html>
