@@ -23,33 +23,45 @@
                 {{ votes }}
             </p>
 
-            <button class="btn btn-info" @click="vote">Votar</button>
+            <food @voted="countVote" name="Cheesburguer"></food>
 
         </div>
     </div>
+
+    <template id="food">
+        <button class="btn btn-info" @click="vote"> {{ name }}</button>
+    </template>
+
+
 </body>
 
 
 <script type="text/javascript" src="../lib/vue.js"></script>
 
 <script type="text/javascript">
+
+    Vue.component('food', {
+        template: '#food',
+        props: ['name'],
+        methods: {
+            vote: function () {
+                this.$emit('voted');
+            }
+        }
+    });
+
     new Vue({
         el: '.container',
         data: {
             votes: 0
         },
         methods: {
-            vote: function () {
-                this.$emit('voted')
+            countVote: function() {
+                this.votes++;
             }
-        }
-        /*
+        },
         created() {
-            this.$on('voted',function(button) {
-                this.votes++
-            })
         }
-        */
     })    
   </script>
 </html>

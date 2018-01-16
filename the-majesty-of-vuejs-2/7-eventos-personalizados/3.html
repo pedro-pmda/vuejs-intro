@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content=
+>
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Batalla de Comida</title>
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/fontawesome-all.min.css">
+        
+
+</head>
+<body>
+    <div class="container">
+        <br/>
+        <h1>Batalla de Comida <span class="float-right"><i  class="fa fa-fighter-jet fa-lg"></i></span></h1>
+        
+        <div class="container text-center">
+            <p style="font-size: 140px">
+                {{ votes }}
+            </p>
+            <div class="row">
+                <food @voted="countVote" name="Hamburguesa con queso"></food>
+                <food @voted="countVote" name="Doble Bacon Burguer"></food>
+                <food @voted="countVote" name="Rodeo Burguer"></food>
+            </div>
+            
+        </div>
+    </div>
+    
+    <template id="food">
+        <div class="text center col-lg-4">
+            <p style="font-size: 40px">
+                {{ votes }}
+            </p>
+            <button class="btn btn-info" @click="vote"> {{ name }}</button>
+        </div>
+    </template>
+
+
+</body>
+
+
+<script type="text/javascript" src="../lib/vue.js"></script>
+
+<script type="text/javascript">
+
+    Vue.component('food', {
+        template: '#food',
+        props: ['name'],
+        data: function () {
+            return {
+                votes: 0
+            }
+        },
+        methods: {
+            vote: function () {
+                this.votes++;
+                this.$emit('voted');
+            }
+        }
+    });
+
+    new Vue({
+        el: '.container',
+        data: {
+            votes: 0
+        },
+        methods: {
+            countVote: function() {
+                this.votes++;
+            }
+        },
+        created() {
+        }
+    })    
+  </script>
+</html>
