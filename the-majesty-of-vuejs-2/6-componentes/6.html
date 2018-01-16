@@ -6,16 +6,23 @@
 <meta name="viewport" content=
 >
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Votos Positivos</title>
+    <title>Votación de Historias</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../css/magic.css">
+        
+
 </head>
 <body>
     <div class="container">
-        <h1>¡Esuchemos algunas historias!</h1>
+        <br/>
+        <h1>¡Esuchemos algunas historias! <i class="fa fa-street-view fa-lg"></i></h1>
+        
         <hr class="my-4">
+
         <ul class="list-group">
-            <story v-for="story in stories" :story="story"></story>
+            <story v-for="story in stories" :story="story" :favorite="favorite"></story>
         </ul>
         <hr class="my-4">
         <pre>{{ $data }}</pre>
@@ -25,29 +32,44 @@
     
     <template id="story-template">
         <li class="list-group-item">
-            {{ story.writer }} dijo " {{ story.plot }}".
+            {{ story.writer }} dijo "{{ story.plot }}".
             {{ story.upvotes}} votos.
             <button v-show="!story.voted" @click="upvote" class="btn btn-info">
                 Votar
             </button>
+
+            <button v-show="!isFavorite" @click="setFavorite" class="btn btn-success">
+                Favorita
+            </button>
+
+        <span class="float-right"><i v-show="isFavorite" class="fa fa-star fa-lg"></i></span>
+        
         </li>
     </template>
 </body>
 
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+<script type="text/javascript" src="../lib/vue.js"></script>
 
 <script type="text/javascript">
 
     Vue.component('story', {
         template: '#story-template',
-        props: ['story'],
+        props: ['story', 'favorite'],
         methods: {
             upvote: function() {
                 this.story.upvotes += 1;
                 this.story.voted = true;
+            },
+            setFavorite: function(){
+                this.favorite = this.story;
             }
-        }        
+        },
+        computed: {
+            isFavorite: function() {
+                return this.story == this.favorite;
+            }
+        }       
     });
 
     new Vue({
@@ -79,7 +101,8 @@
                 upvotes: 74,
                 voted: false
             }
-            ]
+            ],
+            favorite: {}
         },
         })
   </script>

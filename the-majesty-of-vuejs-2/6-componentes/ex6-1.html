@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content=
+>
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Votación de Historias</title>
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../css/magic.css">
+        
+
+</head>
+<body>
+    <div class="container">
+        <br/>
+        <h1 class="magictime puffIn">¿A dónde te gustaría ir?<span class="float-right"><i  class="fa fa-globe fa-lg"></i></span></h1>
+        
+        <hr class="my-4">
+
+        <ul class="list-group">
+            <voyage v-for="planet in planets" :planet="planet"></voyage>
+        </ul>
+        
+        <hr class="my-4">
+        <button @click="reset" class="btn btn-danger">
+            Reset
+        </button>
+        <hr class="my-4">
+
+        <pre>{{ $data }}</pre>
+
+    </div>
+    
+    
+    <template id="voyage-template">
+        <li class="list-group-item">
+            Planeta: {{ planet.name }} . Visitado: {{ planet.visited }}.
+            <button v-show="planet.visited < 3" @click="upvote" class="btn btn-info">
+                Votar
+            </button>
+
+        <span class="float-right"><i v-show="planet.visited > 0" class="fa fa-rocket fa-lg"></i></span>
+        
+        </li>
+    </template>
+</body>
+
+
+<script type="text/javascript" src="../lib/vue.js"></script>
+
+<script type="text/javascript">
+
+    Vue.component('voyage', {
+        template: '#voyage-template',
+        props: ['planet'],
+        methods: {
+            upvote: function() {
+                this.planet.visited += 1;
+            }
+        },
+        computed: {
+            isFavorite: function() {
+                return this.story == this.favorite;
+            }
+        }       
+    });
+
+    new Vue({
+        el: '.container',
+        data: {
+            planets: [
+            {
+                name: 'Mercurio',
+                visited: 0,
+            },
+            {
+                name: 'Venus',
+                visited: 0,
+            },
+            {
+                name: 'Tierra',
+                visited: 0,
+            },
+            {
+                name: 'Marte',
+                visited: 0,
+            },
+            {
+                name: 'Júpiter',
+                visited: 0,
+            },
+            {
+                name: 'Saturno',
+                visited: 0,
+            },
+            {
+                name: 'Urano',
+                visited: 0,
+            },
+            {
+                name: 'Neptuno',
+                visited: 0,
+            }
+            ]
+        },
+        methods: {
+            reset: function() {
+                this.planets.map( function(planet) { planet.visited = 0; return planet})
+            }
+        }
+        })
+  </script>
+</html>
