@@ -1,0 +1,82 @@
+1.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content=
+>
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Enlaces de Clases y Estilos</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container text-center">
+
+        <div class="text-center">
+            <div class="box" v-bind:class="{ 'red': color, 'blue': !color}"></div>
+            <div class="box" v-bind:class="{ 'purple': color, 'green': !color}"></div>
+            <div class="box" v-bind:class="{ 'red': color, 'blue': !color}"></div>
+            <div class="box" v-bind:class="{ 'purple': color, 'green': !color}"></div>
+            
+            <button @click="flipColor" class="btn btn-block btn-success">
+                ¡Cambia Color!
+            </button>
+        </div>
+
+        <div class="text-center">
+            <div class="box" v-bind:class="[ color ?  'red' : 'blue']"></div>
+            <div class="box" v-bind:class="[ color ?  'purple' : 'green']"></div>
+            <div class="box" v-bind:class="[ color ?  'red' : 'blue']"></div>
+            <div class="box" v-bind:class="[ color ?  'purple' : 'green']"></div>
+    
+            <button @click="flipColor" class="btn btn-block btn-success">
+                ¡Cambia Color con operador ternario!
+            </button>
+        </div>
+    </div>
+
+</body>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+
+<script type="text/javascript">
+    new Vue({
+        el: '.container',
+        data: {
+            color: true
+        },
+        methods: {
+            flipColor: function() {
+                this.color = !this.color;
+            }
+        }
+    })
+  </script>
+
+  <style type="text/css">
+    .red {
+        background: #ff0000
+    }
+    .blue {
+        background: #0000ff
+    }
+    .purple {
+        background: #7B1FA2
+    }
+    .green {
+        background: #4caf50
+    }
+    .box {
+        float: left;
+        width: 200px;
+        height: 200px;
+        margin: 40px;
+        border: 1px solid rgba(0,0,0, .2)
+    }
+  
+  
+  </style>
+
+</html>

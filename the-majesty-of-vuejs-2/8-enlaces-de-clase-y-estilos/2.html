@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content=
+>
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Votos Positivos</title>
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../css/magic.css">
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div id="app">
+            <ul>
+                <li :class="{'completed': task.done}" :style="styleObject" v-for="task in tasks">
+                    {{ task.body }}
+                    <button @click="completeTask(task)" class="btn">
+                        ¡Just DO IT!
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</body>
+
+<script type="text/javascript" src="../lib/vue.js"></script>
+
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data: {
+            tasks: [
+                {body:"Alimentar a los caballos", done: true},
+                {body:"Lavar armadura", done: true},
+                {body:"Afilar espada", done: false}
+            ],
+            styleObject: {
+                fontSize: '25px'
+            }
+        },
+        methods:{
+            completeTask: function (task) {
+                task.done = !task.done                
+            }
+        }
+    })
+  </script>
+
+  <style type="text/css">
+    .completed {
+        text-decoration: line-through;
+    }
+  </style>
+
+</html>
