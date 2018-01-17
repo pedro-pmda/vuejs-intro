@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content=
+>
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Votación de Historias</title>
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../css/magic.css">
+        
+
+</head>
+<body>
+    <div class="container">
+        <br/>
+        <h1>¡Esuchemos algunas historias! <i class="fa fa-street-view fa-lg"></i></h1>
+        
+        <hr class="my-4">
+
+        <ul class="list-group">
+            <story v-for="story in stories" :story="story" :favorite="favorite" @update="updateFavorite"></story>                                                                                
+        </ul>
+        <hr class="my-4">
+        <pre>{{ $data }}</pre>
+
+    </div>
+    
+    
+    <template id="story-template">
+        <li class="list-group-item">
+            {{ story.writer }} dijo "{{ story.plot }}".
+            {{ story.upvotes}} votos.
+            <button v-show="!story.voted" @click="upvote" class="btn btn-info">
+                Votar
+            </button>
+            <button v-show="!isFavorite" @click="setFavorite" class="btn btn-success">
+                Favorita
+            </button>
+            <span class="float-right"><i v-show="isFavorite" class="fa fa-star fa-lg star"></i></span>
+        
+        </li>
+    </template>
+</body>
+
+
+<script type="text/javascript" src="../lib/vue.js"></script>
+
+<script type="text/javascript">
+
+    Vue.component('story', {
+        template: '#story-template',
+        props: ['story', 'favorite'],
+        methods: {
+            upvote: function() {
+                this.story.upvotes += 1;
+                this.story.voted = true;
+            },
+            setFavorite: function(){
+                this.favorite = this.story;
+                //this.$emit('update',this.story)
+            },
+            updateFavorite: function () {
+                // 'update' es solo el nombre del evento personalizado
+                // puede ser cualquier cosa. Por ejemplo fav-update
+                this.$emit('update',this.story)
+            }
+        },
+        computed: {
+            isFavorite: function() {
+                return this.story == this.favorite;
+            }
+        }       
+    });
+
+    new Vue({
+        el: '.container',
+        data: {
+            stories: [
+            {
+                plot: 'Mi caballo es genial',
+                writer: 'Mr. Weebl',
+                upvotes: 28,
+                voted: false
+
+            },
+            {
+                plot: 'Los narvales inventaron el Shish Kebab',
+                writer: 'Mr. Weebl',
+                upvotes: 8,
+                voted: false
+            },
+            {
+                plot: 'El lado oscuro de la Fuerza es más fuerte',
+                writer: 'Darth Vader',
+                upvotes: 49,
+                voted: false
+            },
+            {
+                plot: 'Uno simplemente no camina hacia Mordor',
+                writer: 'Boromir',
+                upvotes: 74,
+                voted: false
+            }
+            ],
+            favorite: {}
+        },
+        methods: {
+            updateFavorite: function (story) {
+                this.favorite = story;
+            }
+        }
+        })
+  </script>
+
+
+  <style>
+      .star {color: rgba(236, 236, 45, 0.795)}
+  </style>
+</html>
+
+
+
+

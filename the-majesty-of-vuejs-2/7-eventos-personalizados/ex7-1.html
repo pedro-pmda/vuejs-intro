@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<!-- TENTATIVA HECHA POR MI. NO ACABA DE FUNCIONAR LOS EVENTOS -->
+
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content=
+>
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Votación de Historias</title>
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../css/magic.css">
+
+</head>
+<body>
+    <div class="container">
+        <br/>
+        <h1>¡Vamos a montar a Carruaje! <i class="fa fa-motorcycle fa-lg"></i></h1>
+        
+        <hr class="my-4">
+        
+        <div class="row justify-content-center">            
+            <carruaje v-for="carruaje in carruajes" :carruaje="carruaje" :actual="actual" class="col col-lg-2" @select="actualizarCarruaje"></carruaje>                                                                                
+        </div>
+        
+        <hr class="my-4">
+
+        <pre>{{ $data }}</pre>
+
+    </div>
+    
+    
+    <template id="carruaje-template">
+        <div class="card card-carruaje">            
+            <p class="card-number">
+                {{ carruaje.caballos }}
+            </p>        
+            <div class="card-body">
+                <h5 class="card-title">{{ carruaje.nombre }}</h5>            
+                <button :disabled="isCurrent" class="btn btn-primary" @click="setMontando(carruaje)">{{ action }}</button>
+            </div>
+        </div>
+    </template>
+</body>
+
+
+<script type="text/javascript" src="../lib/vue.js"></script>
+
+<script type="text/javascript">
+    
+    Vue.component('carruaje', {
+        template: '#carruaje-template',
+        props: ['carruaje','actual'],
+        methods: {
+            setMontando: function(carruaje){                
+                this.$emit('select',carruaje)
+            }
+        },
+        computed: {
+            hasMoreHorses: function() {
+                return this.actual.caballos < this.carruaje.caballos
+            },
+            isCurrent: function () {
+                return this.actual.nombre == this.carruaje.nombre                
+            },
+            noCarruaje: function() {
+                return this.actual.nombre == null;
+            },
+            action: function() {
+                if (this.noCarruaje) {
+                    action = "Escoger Carruaje"
+                } else if (this.isCurrent) {
+                    action = 'Montando!'
+                } else if (this.hasMoreHorses) {
+                    action = 'Contratar caballo'
+                } else {
+                    action = 'Descontar Caballo'
+                }
+                return action;
+            }
+        },
+        created() {
+
+        }
+
+    });
+
+    new Vue({
+        el: '.container',
+        data: {
+            carruajes: [
+            {nombre: 'Carruaje 1', caballos: 3},
+            {nombre: 'Carruaje 2', caballos: 1},
+            {nombre: 'Carruaje 3', caballos: 4},
+            {nombre: 'Carruaje 4', caballos: 2}
+            ],
+            actual:{}
+        },
+        methods: {
+            actualizarCarruaje: function(carruaje) {
+                this.actual = carruaje
+            }
+        }
+        })
+  </script>
+
+
+  <style>
+      .card-carruaje { margin-right: 20px;}
+     
+      .card-number {font-size: 100px;
+                    text-align: center;
+      }
+
+  </style>
+</html>
+
+
+
+
