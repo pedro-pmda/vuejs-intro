@@ -1,7 +1,5 @@
 <template>
   <div>        
-    <c-002></c-002>
-
     <el-container>
       <el-header>
         <h1>Componente de Impresión</h1>
@@ -16,7 +14,7 @@
           </el-col>
 
           <el-col :span="3">
-            <el-card class="btn-accion noprint">
+            <el-card class="btn-accion noprint" @click.native = "sendMail">
               <img class="imgAccion" src="../assets/sendemail.svg">
               <span>Email</span>
             </el-card>
@@ -35,19 +33,24 @@
     data() {
       return {
         divContents :'',        
-         printWindow: ''
+        printWindow: '',
+        link: ''
       }
     },
     methods: {
       printNewWindow: function () {
-        window.print();
+        console.log('Entro a Imprimir');
+        window.print();        
+      },
+      sendMail: function () {
+          window.location.href="mailto:?subject="+document.title+"&body="+escape( window.location.href);
+
       }
-    },
+    }, 
     create() {
       console.log('Me creo');
     }
   }
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

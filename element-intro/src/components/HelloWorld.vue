@@ -4,6 +4,8 @@
     <router-link to="/c002">Componente 002</router-link>
     <br>
     <router-link to="/c003">Componente XXX Impresion y envío Email</router-link>
+    <br>
+    <router-link to="/c006">Componente 006 Botones de Acción</router-link>
   </div>
 </template>
 
