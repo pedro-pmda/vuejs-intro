@@ -2,7 +2,14 @@
   <div class="thread">
     <div>
       <p>
-        <a href="#">{{thread.title}}</a>
+        <!-- <a :href="`/thread/${thread['.key']}`"></a> -->
+        <!-- <router-link :to="`/thread/${thread['.key']}`">
+          {{thread.title}}
+        </router-link> -->
+        <router-link :to="{ name: 'ThreadShow', params: {id: thread['.key']}}">
+          {{thread.title}}
+        </router-link>
+
       </p>
       <p class="text-faded text-xsmall">
         By
