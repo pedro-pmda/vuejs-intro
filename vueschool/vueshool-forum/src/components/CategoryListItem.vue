@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import sourceData from '@/data.json' // @ igual src/ path
 import ForumList from './ForumList'
 
 export default {
@@ -26,7 +25,7 @@ export default {
 
   computed: {
     forumsByCat () {
-      return Object.values(sourceData.forums).filter(
+      return Object.values(this.$store.state.forums).filter(
         forum => forum.categoryId === this.category['.key']
       )
     }

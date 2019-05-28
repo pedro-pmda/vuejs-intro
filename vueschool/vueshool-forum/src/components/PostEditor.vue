@@ -24,16 +24,13 @@ export default {
   },
   methods: {
     save () {
-      const postId = 'greatPost' + Math.random()
-
       const post = {
         text: this.text,
-        publishedAt: Math.floor(Date.now() / 1000),
-        threadId: this.id,
-        userId: 'ALXhxjwgY9PinwNGHpfai6OWyDu2',
-        '.key': postId
+        threadId: this.threadId
       }
-      this.$emit('save', { post })
+      console.log(`Justo antes del dispatch`)
+      console.log(post)
+      this.$store.dispatch('createPost', post)
       this.text = ''
     }
   }
