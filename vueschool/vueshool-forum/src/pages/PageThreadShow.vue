@@ -2,7 +2,13 @@
   <div>
     <div class="col-large push-top">
       <h1>{{thread.title}}</h1>
-
+      <router-link
+        :to="{name: 'ThreadEdit', id: this.id}"
+        class="btn-green btn-small"
+        tag="button"
+      >
+      Edit Thread
+      </router-link>
       <p>
         By
         <a href="#" class="link-unstyled">Robin</a>, <AppDate :timestamp="thread.publishedAt"/>
