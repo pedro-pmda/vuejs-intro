@@ -14,24 +14,50 @@
 export default {
   props: {
     threadId: {
-      require: true
+      require: false
+    },
+
+    post: {
+      type: Object
     }
+
   },
   data () {
     return {
-      text: ''
+      text: this.post ? this.post.text : ''
     }
   },
+
+  computed: {
+    isUpdate () {
+      return !!this.post
+    }
+  },
+
   methods: {
     save () {
+      this.persist()
+        .then(post => {
+          this.$emit('save', {post})
+        })
+    },
+    create () {
       const post = {
         text: this.text,
         threadId: this.threadId
       }
-      console.log(`Justo antes del dispatch`)
-      console.log(post)
-      this.$store.dispatch('createPost', post)
-      this.text = ''
+      return this.$store.dispatch('createPost', post)
+    },
+    update () {
+      const payload = {
+        id: this.post['.key'],
+        text: this.text
+      }
+      return this.$store.dispatch('updatePost', payload)
+    },
+
+    persist () {
+      return this.isUpdate ? this.update() : this.create()
     }
   }
 }

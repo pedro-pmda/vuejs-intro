@@ -8,10 +8,19 @@
       <p class="desktop-only text-small">{{userPostCount}} posts</p>
     </div>
     <div class="post-content">
-      <div>{{post.text}}</div>
-      <div class="post-date text-faded">
-        <AppDate :timestamp="post.publishedAt"/>
+      <div v-if="!editing">
+        {{post.text}}
       </div>
+      <div class="col-large"  v-else>
+        <PostEditor
+          class=""
+          :post="post"
+          @save="editing = false"
+        />
+      </div>
+    </div>
+    <div class="post-date text-faded">
+      <AppDate :timestamp="post.publishedAt"/>
     </div>
   </div>
 </template>
@@ -24,6 +33,16 @@ export default {
     post: {
       required: true,
       type: Object
+    }
+  },
+
+  components: {
+    PostEditor: () => import('./PostEditor')
+  },
+
+  data () {
+    return {
+      editing: true
     }
   },
 

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="col-large push-top">
+  <div class="col-large push-top">
+    <div>
       <h1>{{thread.title}}</h1>
       <router-link
         :to="{name: 'ThreadEdit', id: this.id}"
