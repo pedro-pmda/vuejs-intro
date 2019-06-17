@@ -8,9 +8,12 @@
       <p class="desktop-only text-small">{{userPostCount}} posts</p>
     </div>
     <div class="post-content">
-      <div v-if="!editing">
-        {{post.text}}
-      </div>
+      <template v-if="!editing">
+        <div>
+          {{post.text}}
+        </div>
+        <a @click.prevent="editing=true" href="#" style="margin-left: auto;" class="link-unstyled" title="Make a change">-E-<i class="fa fa-pencil"></i></a>
+      </template>
       <div class="col-large"  v-else>
         <PostEditor
           class=""
@@ -42,7 +45,7 @@ export default {
 
   data () {
     return {
-      editing: true
+      editing: false
     }
   },
 

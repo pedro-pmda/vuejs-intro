@@ -12,12 +12,12 @@
     </div>
 
     <div class="post-content">
-      <template v-if="!editing">
+      <div v-if="!editing">
         <div>
           {{post.text}}
         </div>
         <a @click.prevent="editing = true" href="#" style="margin-left: auto;" class="link-unstyled" title="Make a change"><i class="fa fa-pencil"></i></a>
-      </template>
+      </div>
       <div v-else>
         <PostEditor
           :post="post"
@@ -25,7 +25,7 @@
           @cancel="editing = false"
         />
       </div>
-
+      <a href="#" style="margin-left: auto;" class="link-unstyled" title="Make a change">Editar<i class="fa fa-pencil"></i></a>
     </div>
 
     <div class="post-date text-faded">
