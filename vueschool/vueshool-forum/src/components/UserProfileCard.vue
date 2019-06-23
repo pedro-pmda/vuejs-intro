@@ -33,12 +33,7 @@
 
     <div class="text-center">
       <hr>
-      <router-link
-        :to="{name:'ProfileEdit'}"
-        class="btn-green btn-small"
-      >
-        Edit Profile
-      </router-link>
+      <router-link :to="{name:'ProfileEdit'}" class="btn-green btn-small">Edit Profile</router-link>
     </div>
   </div>
 </template>
@@ -49,14 +44,16 @@ export default {
     user: {
       required: true,
       type: Object
+    }
+  },
+
+  computed: {
+    userThreadsCount () {
+      return this.$store.getters.userThreadsCount(this.user['.key'])
     },
-    userPostsCount: {
-      required: true,
-      type: Number
-    },
-    userThreadsCount: {
-      required: true,
-      type: Number
+
+    userPostsCount () {
+      return this.$store.getters.userPostsCount(this.user['.key'])
     }
   }
 }
