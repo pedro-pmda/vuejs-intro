@@ -23,7 +23,7 @@
           placeholder="Add an item..."
           @keyup.enter="saveItem"
         />
-        <button class="btn btn-primary" @click="saveItem">
+        <button class="btn btn-primary" :disabled="newItem.length === 0" @click="saveItem">
           Save Items
         </button>
       </div>
