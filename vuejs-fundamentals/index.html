@@ -31,6 +31,7 @@
           placeholder="Add an item..."
           @keyup.enter="saveItem"
         />
+        <p>{{ charatesCount }}/200</p>
         <button
           class="btn btn-primary"
           :disabled="newItem.length === 0"
@@ -40,7 +41,13 @@
         </button>
       </div>
       <ul>
-        <li v-for="item in items" :class="{ strikeout: item.purchased, priority: item.highPriority}" @click="togglePurchased(item)">{{ item.label }}</li>
+        <li
+          v-for="item in reversedItems"
+          :class="{ strikeout: item.purchased, priority: item.highPriority}"
+          @click="togglePurchased(item)"
+        >
+          {{ item.label }}
+        </li>
       </ul>
       <p v-if="items.length === 0">Nice Job! You've bought all items.</p>
     </div>
@@ -54,34 +61,42 @@
           newItem: "",
           items: [
             {
-              label: '10 party hats',
+              label: "10 party hats",
               purchased: false,
-              highPriority: false
+              highPriority: false,
             },
             {
-              label: '2 board games',
+              label: "2 board games",
               purchased: true,
-              highPriority: false
+              highPriority: false,
             },
             {
-              label: '20 cups',
+              label: "20 cups",
               purchased: false,
-              highPriority: true
-            }
+              highPriority: true,
+            },
           ],
+        },
+        computed: {
+          charatesCount() {
+            return this.newItem.length;
+          },
+          reversedItems() {
+            return this.items.slice(0).reverse();
+          }
         },
         methods: {
           saveItem: function () {
-            this.items.push( { label: this.newItem, purchased:false } );
+            this.items.push({ label: this.newItem, purchased: false });
           },
-          changeState: function(newState) {
-              this.state = newState;
-              this.newItem = ''
+          changeState: function (newState) {
+            this.state = newState;
+            this.newItem = "";
           },
           togglePurchased: function (item) {
             item.purchased = !item.purchased;
-          }
-        }
+          },
+        },
       });
     </script>
   </body>
